@@ -40,11 +40,13 @@ namespace TicketSystem
             //Adatbázis kapcsolat beállítása (connection string olvasás a konfigurációs állományból
             services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
+            //Kezdeti adatok (admin felhasználó) hozzáadása
+            services.AddTransient<InitialData>();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, InitialData initialData)
         {
             if (env.IsDevelopment())
             {
@@ -58,6 +60,7 @@ namespace TicketSystem
             }
 
             app.UseCors("EnableCORS");
+            initialData.AddAdminUser();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
