@@ -18,3 +18,6 @@ GRANT ALL PRIVILEGES ON * . * TO 'ticket'@'localhost';
 4-Admin felhasználó létrehozása: https://youtu.be/AFVcMiwTfxk
 
 5-Login controller létrehozása, tesztelése: https://youtu.be/XExvLDDuIxY
+
+6-Authentication middleware a JWT-hez: https://youtu.be/1PQkX3rn68I
+
