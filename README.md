@@ -13,3 +13,5 @@ GRANT ALL PRIVILEGES ON * . * TO 'ticket'@'localhost';
 
 2-Az induló projekt tisztítása: https://youtu.be/AX_Czrdoz_c
 
+3-Felhasználókezeléshez szükséges modell osztályok és adatbázis létrehozása: https://youtu.be/_sFSxTqIA4U
+

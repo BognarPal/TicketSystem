@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using TicketSystem.Data;
 
 namespace TicketSystem
 {
@@ -26,8 +27,22 @@ namespace TicketSystem
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            //CORS engedélyezése
+            services.AddCors(options =>
+            {
+                options.AddPolicy("EnableCORS", builder =>
+                {
+                    builder.SetIsOriginAllowed(_ => true).AllowAnyMethod().AllowAnyHeader().AllowCredentials().Build();
+                });
+            });
+
+            //Adatbázis kapcsolat beállítása (connection string olvasás a konfigurációs állományból
+            services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+
+
         }
-            
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -41,6 +56,8 @@ namespace TicketSystem
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors("EnableCORS");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
