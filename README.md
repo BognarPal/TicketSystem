@@ -16,3 +16,5 @@ GRANT ALL PRIVILEGES ON * . * TO 'ticket'@'localhost';
 3-Felhasználókezeléshez szükséges modell osztályok és adatbázis létrehozása: https://youtu.be/_sFSxTqIA4U
 
 4-Admin felhasználó létrehozása: https://youtu.be/AFVcMiwTfxk
+
+5-Login controller létrehozása, tesztelése: https://youtu.be/XExvLDDuIxY
