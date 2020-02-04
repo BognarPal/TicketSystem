@@ -21,3 +21,5 @@ GRANT ALL PRIVILEGES ON * . * TO 'ticket'@'localhost';
 
 6-Authentication middleware a JWT-hez: https://youtu.be/1PQkX3rn68I
 
+7-Login controller módosítása - token létrehozás: https://youtu.be/kuI5exdzyF0
+
