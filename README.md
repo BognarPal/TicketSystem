@@ -23,3 +23,4 @@ GRANT ALL PRIVILEGES ON * . * TO 'ticket'@'localhost';
 
 7-Login controller módosítása - token létrehozás: https://youtu.be/kuI5exdzyF0
 
+8-Kliens oldalon login komponens létrehozása: https://youtu.be/9CsmVtOf948
