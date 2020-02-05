@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using TicketSystem.Models.Authentication;
 
 namespace TicketSystem.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -28,6 +30,7 @@ namespace TicketSystem.Controllers
             this.appSettings = appSettings.Value;
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login ([FromBody] LoginModel formData)
         {
@@ -67,6 +70,16 @@ namespace TicketSystem.Controllers
             }
             ModelState.AddModelError("", "Hibás felhasználó név vagy jelszó");
             return Unauthorized(new { error = "Hibás felhasználói név vagy jelszó" });
+        }
+
+        [HttpGet("Teszt")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Teszt()
+        {
+            return Ok(new
+            {
+                message = "Siker"
+            });
         }
     }
 }

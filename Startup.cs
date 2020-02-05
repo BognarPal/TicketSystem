@@ -116,7 +116,6 @@ namespace TicketSystem
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
-            //app.UseAuthorization();  //TODO: ellenõrízni, hogy ez tényleg kell-e!
 
             if (!env.IsDevelopment())
             {
@@ -124,6 +123,7 @@ namespace TicketSystem
             }
 
             app.UseRouting();
+            app.UseAuthorization();  //szükség van rá, fontos hogy a UserRouting() után legyen!!
 
             app.UseEndpoints(endpoints =>
             {

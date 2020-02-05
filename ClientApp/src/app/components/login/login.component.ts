@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +24,20 @@ export class LoginComponent implements OnInit {
     this.http.post('https://localhost:44337/api/Auth/Login', this.formData).subscribe(
       (data: any) => {
         localStorage.setItem('currentUser', JSON.stringify(data));
-        console.log(data);
+
+        const header = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + data.token
+        });
+
+        this.http.get('https://localhost:44337/api/Auth/teszt', {headers: header}).subscribe(
+          (message: any) => {
+            alert(message.message);
+          },
+          err => {
+            alert(err.message);
+          }
+        )
       },
       err => {
         this.formData.error = err.error.error;
