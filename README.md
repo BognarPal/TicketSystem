@@ -26,3 +26,5 @@ GRANT ALL PRIVILEGES ON * . * TO 'ticket'@'localhost';
 8-Kliens oldalon login komponens létrehozása: https://youtu.be/LSH9DIDlAaY
 
 9-Authorization védett függvény létrehozása: https://youtu.be/yCpODSyIT8k
+
+10-Authentication service létrehozása: https://youtu.be/qHRAXMVYQ5Y

@@ -10,7 +10,10 @@
     <input type="password" id="inputPassword" class="form-control" placeholder="Jelszó" required=""
            [(ngModel)]="formData.password" name="email">
     <label *ngIf="formData.error" class="text-danger font-weight-bold my-2 text-center w-100">{{formData.error}}</label>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Bejelentkezés</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="formData.loading">
+      <span *ngIf="formData.loading" class="spinner-border spinner-border-sm mr-1" ></span>
+      Bejelentkezés
+    </button>
 
   </form>
 

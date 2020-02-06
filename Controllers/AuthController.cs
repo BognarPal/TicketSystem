@@ -59,13 +59,14 @@ namespace TicketSystem.Controllers
                 };
                 
                 var token = tokenHandler.CreateToken(tokenDescriptor);
-
+                System.Threading.Thread.Sleep(500);
                 return Ok(new
                 {
+                    email = user.Email,
                     token = tokenHandler.WriteToken(token),
                     expiration = token.ValidTo,
                     username = user.UserName,
-                    userRole = roles.FirstOrDefault()
+                    roles = roles
                 });
             }
             ModelState.AddModelError("", "Hibás felhasználó név vagy jelszó");

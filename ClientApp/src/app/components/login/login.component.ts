@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -11,35 +11,25 @@ export class LoginComponent implements OnInit {
   formData = {
     email: '',
     password: '',
-    error: ''
+    error: '',
+    loading: false
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
   }
 
   submit() {
     this.formData.error = '';
-    this.http.post('https://localhost:44337/api/Auth/Login', this.formData).subscribe(
+    this.formData.loading = true;
+    this.authenticationService.login(this.formData.email, this.formData.password).subscribe(
       (data: any) => {
-        localStorage.setItem('currentUser', JSON.stringify(data));
-
-        const header = new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + data.token
-        });
-
-        this.http.get('https://localhost:44337/api/Auth/teszt', {headers: header}).subscribe(
-          (message: any) => {
-            alert(message.message);
-          },
-          err => {
-            alert(err.message);
-          }
-        )
+        this.formData.loading = false;
+        alert('sikeres login');
       },
       err => {
+        this.formData.loading = false;
         this.formData.error = err.error.error;
       }
     );
