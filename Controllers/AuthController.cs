@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using TicketSystem.Data;
 using TicketSystem.Helper;
 using TicketSystem.Models.Authentication;
 
@@ -23,11 +24,17 @@ namespace TicketSystem.Controllers
     {
         private readonly UserManager<UserModel> userManager;
         private readonly AppSettings appSettings;
+        private readonly ApplicationDbContext context;
+        private static Random random = new Random();
 
-        public AuthController(UserManager<UserModel> userManager, IOptions<AppSettings> appSettings)
+        public AuthController(
+            UserManager<UserModel> userManager, 
+            IOptions<AppSettings> appSettings,
+            ApplicationDbContext context)
         {
             this.userManager = userManager;
             this.appSettings = appSettings.Value;
+            this.context = context;
         }
 
         [AllowAnonymous]
@@ -38,35 +45,38 @@ namespace TicketSystem.Controllers
 
             if (user != null && await userManager.CheckPasswordAsync(user, formData.Password))
             {
-                //token létrehozása
-                var roles = await userManager.GetRolesAsync(user);
-                var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(appSettings.Secret));
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var tokenDescriptor = new SecurityTokenDescriptor()
+                //sessionid létrehozása
+                const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                string sessionId;
+                do
+                    sessionId = new string(Enumerable.Repeat(chars, 120).Select(s => s[random.Next(s.Length)]).ToArray());
+                while (context.UserSessions.Any(s => s.SessionId == sessionId));
+
+                //új sessionid adatbázisba írása
+                var now = DateTime.Now;
+                context.UserSessions.Add(new UserSessionModel()
                 {
-                    Subject = new ClaimsIdentity(new Claim[]
-                    {
-                        new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                        new Claim(ClaimTypes.NameIdentifier, user.Id),
-                        new Claim(ClaimTypes.Role, roles.FirstOrDefault()),
-                        new Claim("LoggedOn", DateTime.Now.ToString())
-                    }),
-                    SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature),
-                    Issuer = appSettings.Site,
-                    Audience = appSettings.Audience,
-                    Expires = DateTime.UtcNow.AddMinutes(double.Parse(appSettings.ExpireTime))
-                };
+                    SessionId = sessionId,
+                    User = user,
+                    LastAccess = now
+                });
+
+                //ha volt a felhasználónak korábbi, már lejárt session-je, annak törlése
+                context.UserSessions.RemoveRange(
+                    context.UserSessions.Where( s => s.LastAccess.AddMinutes(appSettings.SessionExpireTimeInMinute) < now));
                 
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                System.Threading.Thread.Sleep(500);
+                context.SaveChanges();
+
+                var roles = await userManager.GetRolesAsync(user);
+                
                 return Ok(new
                 {
+                    id = user.Id,
                     email = user.Email,
-                    token = tokenHandler.WriteToken(token),
-                    expiration = token.ValidTo,
+                    token = sessionId,
                     username = user.UserName,
-                    roles = roles
+                    roles = roles,
+                    lastAccess = now
                 });
             }
             ModelState.AddModelError("", "Hibás felhasználó név vagy jelszó");

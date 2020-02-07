@@ -28,3 +28,5 @@ GRANT ALL PRIVILEGES ON * . * TO 'ticket'@'localhost';
 9-Authorization védett függvény létrehozása: https://youtu.be/yCpODSyIT8k
 
 10-Authentication service létrehozása: https://youtu.be/qHRAXMVYQ5Y
+
+11-A JWT authentikáció mégsem volt jó ötlet ebben az esetben: https://youtu.be/_6JaUzElVp8

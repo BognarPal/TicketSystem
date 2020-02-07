@@ -1,7 +1,7 @@
 export class User {
   email: string;
   token?: string;
-  expiration: Date;
+  lastAccess: Date;
   username: string;
   roles: string[];
 }

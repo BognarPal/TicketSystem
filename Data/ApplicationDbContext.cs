@@ -13,6 +13,7 @@ namespace TicketSystem.Data
     {
         public DbSet<UserStateModel> UserState { get; set; }
         public DbSet<UserStateHistoryModel> UserStateHistory { get; set; }
+        public DbSet<UserSessionModel> UserSessions { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
         {
@@ -30,6 +31,7 @@ namespace TicketSystem.Data
                 new IdentityRole() { Id = "3", Name = "Customer", NormalizedName = "Customer" }
             );
 
+            builder.Entity<UserSessionModel>().HasIndex(s => s.SessionId).IsUnique();
         }
     }
 }

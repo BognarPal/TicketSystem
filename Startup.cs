@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
+using TicketSystem.Authentication;
 using TicketSystem.Data;
 using TicketSystem.Helper;
 using TicketSystem.Models.Authentication;
@@ -70,7 +72,7 @@ namespace TicketSystem
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
             var appSettings = appSettingsSection.Get<AppSettings>();
-            var secretKey = Encoding.ASCII.GetBytes(appSettings.Secret);
+            /*var secretKey = Encoding.ASCII.GetBytes(appSettings.Secret);
 
             services.AddAuthentication(options =>
             {
@@ -89,11 +91,18 @@ namespace TicketSystem
                     IssuerSigningKey = new SymmetricSecurityKey(secretKey)
                 };
             });
-
-            services.AddAuthorization(options =>
+            */
+            services.AddAuthentication(options =>
             {
-                options.AddPolicy("RequireAdmin", policy => policy.RequireRole("Admin").RequireAuthenticatedUser());
+                options.DefaultAuthenticateScheme = "SessionBasedAuthentication";
+            }).AddScheme<AuthenticationSchemeOptions, MyAuthenticationHandler>("SessionBasedAuthentication", options => { });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/login";
             });
+
+            services.AddAuthorization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
