@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>minta</title>    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+    <h2 class="my-3">Felhasználók</h2>
+
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Név</th>
+                <th scope="col">Állapot</th>
+                <th scope="col">Email</th>
+                <th scope="col">Partner neve</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Teszt Elek</td>
+                <td>Aktív</td>
+                <td>elek@mail.hu</td>
+                <td>XYZ Kft</td>
+            </tr>
+            <tr>
+                <td>Gipsz Jakab</td>
+                <td>Inaktív</td>
+                <td>jakab@mail.hu</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Winch Eszter</td>
+                <td>Törölt</td>
+                <td>eszter@mail.hu</td>
+                <td>ABC Rt</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="border border-light rounded shadow mt-2 fieldset">
+        <span class="legend">Részletek</span>
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="SurName">Vezetéknév</label>
+                    <input type="text" class="form-control" id="SurName" placeholder="Minta">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="Forename">Keresztnév</label>
+                    <input type="Text" class="form-control" id="Forename" placeholder="Géza">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="UserName">Név</label>
+                    <input type="text" class="form-control" id="UserName" placeholder="Minta Géza" disabled>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="Email">Email</label>
+                    <input type="email" class="form-control" id="Email" placeholder="geza@mail.hu">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group offset-md-6 col-md-6">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="SendEmail">
+                        <label class="form-check-label" for="SendEmail">Értesítések küldése email-en</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="partner">Partner</label>
+                    <select id="partner" class="form-control">
+                        <option value=""></option>
+                        <option value="">XYZ Kft.</option>
+                        <option value="">ABC Rt.</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="PhoneNumber">Telefonszám</label>
+                    <input type="text" class="form-control" id="PhoneNumber" placeholder="+36 90 123-456">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="userState">Állapot</label>
+                    <select id="userState" class="form-control">
+                        <option value="" selected>Aktív</option>
+                        <option value="">Inkavít</option>
+                        <option value="">Törölt</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-9">
+                    <label class="d-block" for="roles">Szerepek</label>
+                    <div class="form-check form-check-inline mt-1">
+                        <input class="form-check-input" type="checkbox" id="roleAdmin">
+                        <label class="form-check-label" for="roleAdmin">Admin</label>
+                    </div>
+                    <div class="form-check form-check-inline mt-1">
+                        <input class="form-check-input" type="checkbox" id="roleDeveloper">
+                        <label class="form-check-label" for="roleDeveloper">Fejlesztő</label>
+                    </div>
+                    <div class="form-check form-check-inline mt-1">
+                        <input class="form-check-input" type="checkbox" id="roleCustomer">
+                        <label class="form-check-label" for="roleCustomer">Ügyfél</label>
+                    </div>
+
+                </div>
+            </div>
+            <button type="Button" class="btn btn-primary">Módosítás</button>
+            <button type="Button" class="btn btn-danger ml-3">Törlés</button>
+        </form>
+    </div>
+</body>
+</html>
