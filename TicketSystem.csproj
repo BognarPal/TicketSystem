@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\components\" />
+    <Folder Include="ClientApp\src\app\NewFolder\" />
     <Folder Include="ClientApp\src\app\services\" />
     <Folder Include="Controllers\" />
   </ItemGroup>

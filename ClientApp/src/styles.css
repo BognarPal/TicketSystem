@@ -14,3 +14,15 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.navbar-admin {
+    background-color: darkred;
+}
+
+.navbar-admin a {
+    color: #ccc!important;
+}
+
+.navbar-admin .navbar-brand {
+    color: #fff!important;
+}

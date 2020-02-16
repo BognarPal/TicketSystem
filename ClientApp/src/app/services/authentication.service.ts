@@ -1,9 +1,9 @@
 // elsődleges forrás: https://jasonwatmore.com/post/2019/06/22/angular-8-jwt-authentication-example-tutorial
 
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 
@@ -12,16 +12,19 @@ import { environment } from '@environments/environment';
 })
 export class AuthenticationService {
 
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  private currentUserChanged = new EventEmitter();
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
+    this.checktoken();
   }
 
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
+  public get currentUser(): User {
+    const usr = new User();
+    usr.loadFromLocalStorage();
+    if (usr.id) {
+      return usr;
+    }
+    return null;
   }
 
   login(email: string, password: string) {
@@ -30,7 +33,7 @@ export class AuthenticationService {
         (user: any) => {
           if (user && user.token) {
             localStorage.setItem('currentUser', JSON.stringify(user));
-            this.currentUserSubject.next(user);
+            this.currentUserChanged.emit(this.currentUser);
           }
           return user;
         }
@@ -38,7 +41,21 @@ export class AuthenticationService {
   }
 
   logout() {
+    this.currentUserChanged.emit(null);
     localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
+  }
+
+  checktoken() {
+    if (this.currentUser) {
+      const header = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.currentUser.token
+      });
+
+      this.http.get(`${environment.apiUrl}/Auth/checktoken`, { headers: header }).subscribe(
+        message => this.currentUserChanged.emit(this.currentUser),
+        err => this.logout()
+      );
+    }
   }
 }

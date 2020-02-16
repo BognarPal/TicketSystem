@@ -32,3 +32,5 @@ GRANT ALL PRIVILEGES ON * . * TO 'ticket'@'localhost';
 11-A JWT authentikáció mégsem volt jó ötlet ebben az esetben: https://youtu.be/_6JaUzElVp8
 
 12-Virtuális mezők hozzáadása a modellhez: https://youtu.be/I740jxXgrwE
+
+13-Angular routing, kliens oldal authentikáció és authorizáció igazítása: http://youtu.be/_Tn98heGjrY

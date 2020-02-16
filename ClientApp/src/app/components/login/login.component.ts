@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,38 +15,27 @@ export class LoginComponent implements OnInit {
     error: '',
     loading: false
   };
+  returnUrl = '/';
 
-  constructor(private authenticationService: AuthenticationService, private http: HttpClient) { }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    if (this.authenticationService.currentUser) {
+      this.router.navigate(['/']);
+    } else {
+      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    }
   }
 
   submit() {
     this.formData.error = '';
     this.formData.loading = true;
     this.authenticationService.login(this.formData.email, this.formData.password).subscribe(
-      (data: any) => {
-        this.formData.loading = false;
-        alert('sikeres login');
-
-        //védett oldal hívása
-
-        let token = JSON.parse(localStorage.getItem('currentUser')).token;
-        const header = new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': token
-        });
-
-        this.http.get('https://localhost:44337/api/Auth/teszt', { headers: header }).subscribe(
-          (message: any) => {
-            alert(message.message);
-          },
-          err => {
-            alert(err.message);
-          })
-
-
-      },
+      data => this.router.navigate([this.returnUrl]),
       err => {
         this.formData.loading = false;
         this.formData.error = err.error.error;
