@@ -30,3 +30,5 @@ GRANT ALL PRIVILEGES ON * . * TO 'ticket'@'localhost';
 10-Authentication service létrehozása: https://youtu.be/qHRAXMVYQ5Y
 
 11-A JWT authentikáció mégsem volt jó ötlet ebben az esetben: https://youtu.be/_6JaUzElVp8
+
+12-Virtuális mezők hozzáadása a modellhez: https://youtu.be/I740jxXgrwE
