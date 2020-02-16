@@ -21,5 +21,6 @@ namespace TicketSystem.Models.Authentication
         /// </summary>
         public bool SendEmail { get; set; }
 
+        public IList<UserRoleModel> Roles { get; set; }
     }
 }

@@ -9,7 +9,14 @@ using TicketSystem.Models.Authentication;
 
 namespace TicketSystem.Data
 {
-    public class ApplicationDbContext: IdentityDbContext<UserModel>
+    public class ApplicationDbContext: IdentityDbContext< UserModel,
+                                                          IdentityRole,
+                                                          string,
+                                                          IdentityUserClaim<string>,
+                                                          UserRoleModel,
+                                                          IdentityUserLogin<string>,
+                                                          IdentityRoleClaim<string>,
+                                                          IdentityUserToken<string>>
     {
         public DbSet<UserStateModel> UserState { get; set; }
         public DbSet<UserStateHistoryModel> UserStateHistory { get; set; }
@@ -23,6 +30,11 @@ namespace TicketSystem.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<UserRoleModel>().HasOne(ur => ur.User)
+                .WithMany(r => r.Roles)
+                .HasForeignKey(ur => ur.UserId)
+                .IsRequired();
 
             builder.Entity<IdentityRole>().HasData(
                 new IdentityRole() { Id = "0", Name = "EveryBody", NormalizedName = "EveryBody" },
