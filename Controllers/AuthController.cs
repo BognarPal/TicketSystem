@@ -76,11 +76,19 @@ namespace TicketSystem.Controllers
                     token = sessionId,
                     username = user.UserName,
                     roles = roles,
-                    lastAccess = now
+                    lastAccess = now,
+                    validTo = now.AddMinutes(appSettings.SessionExpireTimeInMinute)
                 });
             }
             ModelState.AddModelError("", "Hibás felhasználó név vagy jelszó");
             return Unauthorized(new { error = "Hibás felhasználói név vagy jelszó" });
+        }
+
+        [HttpGet("checktoken")]
+        [Authorize()]
+        public IActionResult CheckToken()
+        {
+            return Ok();
         }
 
         [HttpGet("Teszt")]

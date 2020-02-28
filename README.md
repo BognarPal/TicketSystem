@@ -34,3 +34,5 @@ GRANT ALL PRIVILEGES ON * . * TO 'ticket'@'localhost';
 12-Virtuális mezők hozzáadása a modellhez: https://youtu.be/I740jxXgrwE
 
 13-Angular routing, kliens oldal authentikáció és authorizáció igazítása: http://youtu.be/_Tn98heGjrY
+
+14-User adatok a NavBar-on: https://youtu.be/gqJsW8ww8k0

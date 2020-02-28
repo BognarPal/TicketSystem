@@ -15,7 +15,7 @@ export class User {
       this.roles = usr.roles;
       this.token = usr.token;
       this.lastAccess = new Date(usr.lastAccess);
-      this.validTo = new Date(usr.validTo);
+      this.validTo = new Date(usr.validTo);      
     }
   }
 }

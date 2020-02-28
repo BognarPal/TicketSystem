@@ -26,9 +26,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
         path: '',
         component: NavbarComponent,
         children: [
-          { path: 'login', component: LoginComponent },
         ]
       },
+      { path: 'login', component: LoginComponent },
       {
         path: 'admin',
         component: AdminComponent,

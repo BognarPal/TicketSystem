@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +36,8 @@ namespace TicketSystem.Authentication
             this.context = context;
             this.appSettings = appSettings.Value;
         }
+
+        public StringValues JsonConerter { get; private set; }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
@@ -70,6 +74,18 @@ namespace TicketSystem.Authentication
                 var claimsIdentity = new ClaimsIdentity(claims, Scheme.Name);
 
                 var ticket = new AuthenticationTicket(new ClaimsPrincipal(claimsIdentity), new AuthenticationProperties(), Scheme.Name);
+
+                Context.Response.Headers.Add("session",
+                    JsonConvert.SerializeObject(new 
+                    {
+                        id = session.User.Id,
+                        email = session.User.Email,
+                        token = session.SessionId,
+                        username = session.User.UserName,
+                        roles = roles,
+                        lastAccess = DateTime.Now,
+                        validTo = DateTime.Now.AddMinutes(appSettings.SessionExpireTimeInMinute)
+                    }));
 
                 return await Task.FromResult(AuthenticateResult.Success(ticket));
 

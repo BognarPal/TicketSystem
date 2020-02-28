@@ -12,7 +12,7 @@ import { environment } from '@environments/environment';
 })
 export class AuthenticationService {
 
-  private currentUserChanged = new EventEmitter();
+  public currentUserChanged = new EventEmitter();
 
   constructor(private http: HttpClient) {
     this.checktoken();
@@ -53,9 +53,13 @@ export class AuthenticationService {
       });
 
       this.http.get(`${environment.apiUrl}/Auth/checktoken`, { headers: header }).subscribe(
-        message => this.currentUserChanged.emit(this.currentUser),
+        message => {
+          this.currentUserChanged.emit(this.currentUser);
+        },
         err => this.logout()
       );
+    } else {
+      this.currentUserChanged.emit(null);
     }
   }
 }
