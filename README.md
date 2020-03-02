@@ -36,3 +36,5 @@ GRANT ALL PRIVILEGES ON * . * TO 'ticket'@'localhost';
 13-Angular routing, kliens oldal authentikáció és authorizáció igazítása: http://youtu.be/_Tn98heGjrY
 
 14-User adatok a NavBar-on: https://youtu.be/gqJsW8ww8k0
+
+15- NavBar ősosztály kialakítása: https://youtu.be/svclGIs98Ns

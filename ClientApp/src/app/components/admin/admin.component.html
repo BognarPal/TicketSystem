@@ -16,7 +16,9 @@
       </li>
     </ul>
     <span class="navbar-nav nav-item">
-      <a class="nav-link">Logout</a>
+      <label class="navbar-text font-weight-bold text-white">{{authenticationService.currentUser.username}}</label>
+      <label #labelTimeOut class="ml-1 navbar-text font-weight-bold text-white">{{timeToTimeout}}</label>
+      <a class="ml-1 nav-link" (click)="logout()">Logout</a>
     </span>
   </div>
 </nav>
