@@ -37,4 +37,6 @@ GRANT ALL PRIVILEGES ON * . * TO 'ticket'@'localhost';
 
 14-User adatok a NavBar-on: https://youtu.be/gqJsW8ww8k0
 
-15- NavBar ősosztály kialakítása: https://youtu.be/svclGIs98Ns
+15-NavBar ősosztály kialakítása: https://youtu.be/svclGIs98Ns
+
+16-Dropwon direktíva elkészítése: https://youtu.be/8HJLq3e9HOI

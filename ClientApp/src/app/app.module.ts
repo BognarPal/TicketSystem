@@ -9,13 +9,15 @@ import { LoginComponent } from './components/login/login.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AuthInterceptor } from './interceptors/auth-interceptor';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { DropdownDirective } from './directives/dropdown.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AdminComponent,
-    NavbarComponent
+    NavbarComponent,
+    DropdownDirective
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -26,16 +26,13 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
-    <Compile Remove="ClientApp\src\app\NewFolder\**" />
     <Content Remove="$(SpaRoot)**" />
-    <Content Remove="ClientApp\src\app\NewFolder\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\NewFolder\**" />
     <None Remove="$(SpaRoot)**" />
-    <None Remove="ClientApp\src\app\NewFolder\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\app\directives\" />
     <Folder Include="ClientApp\src\app\services\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
