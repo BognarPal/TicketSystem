@@ -40,3 +40,5 @@ GRANT ALL PRIVILEGES ON * . * TO 'ticket'@'localhost';
 15-NavBar ősosztály kialakítása: https://youtu.be/svclGIs98Ns
 
 16-Dropwon direktíva elkészítése: https://youtu.be/8HJLq3e9HOI
+
+17-Saját control: DropdownCheckboxList: http://youtu.be/SuFoLecnvfQ?hd=1

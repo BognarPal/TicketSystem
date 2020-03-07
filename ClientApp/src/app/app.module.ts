@@ -10,6 +10,8 @@ import { AdminComponent } from './components/admin/admin.component';
 import { AuthInterceptor } from './interceptors/auth-interceptor';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DropdownDirective } from './directives/dropdown.directive';
+import { DropdownCheckboxlistComponent } from './controls/dropdown-checkboxlist/dropdown-checkboxlist.component';
+import { PartnerComponent } from './components/admin/partner/partner.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { DropdownDirective } from './directives/dropdown.directive';
     LoginComponent,
     AdminComponent,
     NavbarComponent,
-    DropdownDirective
+    DropdownDirective,
+    DropdownCheckboxlistComponent,
+    PartnerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -35,6 +39,7 @@ import { DropdownDirective } from './directives/dropdown.directive';
         path: 'admin',
         component: AdminComponent,
         children: [
+          { path: 'partner', component: PartnerComponent}
         ]
       },
     ])

@@ -1,0 +1,15 @@
+<h2 class="my-3">
+  Partnerek
+</h2>
+
+<form #test="ngForm">
+  <div class="form-group col-md-12">
+    <label for="users">Felhasználók</label>
+    <app-dropdown-checkboxlist [listSource]="users" name="users" [(ngModel)]="selectedUsers">
+    </app-dropdown-checkboxlist>
+      </div>
+</form>
+
+<p class="mt-5" *ngFor="let x of selectedUsers">
+  {{x}}
+</p>

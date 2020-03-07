@@ -1,0 +1,21 @@
+<div class="btn-group form-control p-0">
+  <button appDropdown class="btn btn-light dropdown-toggle py-0">
+    {{textOfButton}}
+    <ng-container *ngIf="textOfButton === ''">
+      <span *ngFor="let item of checkedItems" class="badge badge-secondary mx-1 display-1" style="font-size: 100%;">
+        {{displayTextFromValue(item)}}
+        <span *ngIf="!disabled" aria-hidden="true" (click)="checkChange(item, false)" >&times;</span>
+      </span>
+    </ng-container>
+    <span class="caret my-right"></span>
+  </button>
+  <ul class="dropdown-menu w-100 app-dropdown">
+    <li class="form-check ml-2" *ngFor="let item of list">
+      <input type="checkbox" class="form-check-input" [id]="'chb' + componentName + item[valueMemberPath]"
+             (input)="checkChange(item[valueMemberPath], $event.target.checked)"
+             [checked]="checkedItems.indexOf(item[valueMemberPath]) !== -1"
+             [disabled] ="disabled"/>
+      <label class="form-check-label" [for]="'chb' + componentName + item[valueMemberPath]">{{item[displayMemberPath]}}</label>
+    </li>
+  </ul>
+</div>
