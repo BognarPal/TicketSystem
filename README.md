@@ -44,3 +44,5 @@ GRANT ALL PRIVILEGES ON * . * TO 'ticket'@'localhost';
 17-Saját control: DropdownCheckboxList: http://youtu.be/SuFoLecnvfQ
 
 18-Partnerek karbantatása (CRUD) back-end: https://youtu.be/wJYaPPi3xGI
+
+19-Partnerek karbantatása (CRUD) front-end: https://youtu.be/p8MU_7Mh9BY

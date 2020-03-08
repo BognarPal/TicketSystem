@@ -26,3 +26,16 @@ code {
 .navbar-admin .navbar-brand {
     color: #fff!important;
 }
+
+.button-group-2 {
+    width: 13.5rem;
+    margin: 1rem auto 0 auto;
+}
+
+.button-group-2 .btn {
+    width: 6.25rem;
+}
+
+.button-group-2 .btn:nth-child(2) {
+    margin-left: 1rem;
+}

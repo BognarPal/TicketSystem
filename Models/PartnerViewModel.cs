@@ -25,7 +25,7 @@ namespace TicketSystem.Models
 
             if (this.Id != null)
             {
-                foreach (var user in partner.UserPartners)
+                foreach (var user in partner.UserPartners.ToList())
                     if (!this.Users.Contains(user.UserId))
                         partner.UserPartners.Remove(user);
 

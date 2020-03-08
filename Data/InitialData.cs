@@ -40,9 +40,21 @@ namespace TicketSystem.Data
                 user.PasswordHash = password.HashPassword(user, "Titk0s");
                 var userStore = new UserStore<UserModel>(context);
                 await userStore.CreateAsync(user);
-                await userStore.AddToRoleAsync(user, "Admin");
 
                 await context.SaveChangesAsync();
+            }
+            if (context.Users.Any(u => u.UserName == user.UserName))
+            {
+                user = context.Users.Where(u => u.UserName == user.UserName).First();
+                if (!context.UserRoles.Any(ur => ur.User == user))
+                {
+                    context.UserRoles.Add(new UserRoleModel()
+                    {
+                        User = user,
+                        RoleId = "1"
+                    });
+                    await context.SaveChangesAsync();
+                }
             }
         }
     }

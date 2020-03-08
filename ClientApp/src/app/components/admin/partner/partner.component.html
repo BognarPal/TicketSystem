@@ -1,15 +1,92 @@
 <h2 class="my-3">
   Partnerek
+  <button *ngIf="!editMode" class="btn btn-primary py-0 float-right" (click)="new()">
+    <h4 class="my-0 d-inline">&#10010;</h4>
+    <span class="ml-2">Új</span>
+  </button>
+
 </h2>
 
-<form #test="ngForm">
-  <div class="form-group col-md-12">
-    <label for="users">Felhasználók</label>
-    <app-dropdown-checkboxlist [listSource]="users" name="users" [(ngModel)]="selectedUsers">
-    </app-dropdown-checkboxlist>
-      </div>
-</form>
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" style="width: 3rem"></th>
+      <th scope="col">Rövidnév</th>
+      <th scope="col">Név</th>
+      <th scope="col">Aktív</th>
+      <th scope="col">Emaildomain</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let partner of partners" [ngClass]="partner.selected ? 'font-weight-bold' : ''"
+        [style.cursor]="partner.selected  || editMode ? 'default' : 'pointer'" (click)="row_click(partner)">
+      <td>
+        <h4 *ngIf="partner.selected" class="my-0">&#11208;</h4>
+      </td>
+      <td>{{partner.shortName}}</td>
+      <td>{{partner.name}}</td>
+      <td>{{partner.active ? 'Igen' : 'Nem'}}</td>
+      <td>{{partner.emailDomain}}</td>
+    </tr>
+  </tbody>
+</table>
 
-<p class="mt-5" *ngFor="let x of selectedUsers">
-  {{x}}
-</p>
+<h5 *ngIf="errorText" class="bg-danger text-white text-center p-2 my-2">{{errorText}}</h5>
+
+<div *ngIf="selectedPartner"  class="card text-white bg-info mb-3">
+  <div class="card-header">Részletek</div>
+  <div class="card-body">
+    <form #partnerForm="ngForm">
+      <div class="form-row">
+        <div class="form-group col-md-5">
+          <label for="shortName">Rövidnév</label>
+          <input type="text" class="form-control" id="shortName" name="shortName" [(ngModel)]="selectedPartner.shortName"
+                 [disabled]="!editMode" />
+        </div>
+
+        <div class="form-group col-md-7">
+          <label for="name">Partner neve</label>
+          <input type="text" class="form-control" id="name" name="name" [(ngModel)]="selectedPartner.name"
+                 [disabled]="!editMode" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-5">
+          <label for="active">Aktív</label>
+          <select class="form-control" id="active" name="active" [(ngModel)]="selectedPartner.active" [disabled]="!editMode">
+            <option value="true">Igen</option>
+            <option value="false">Nem</option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-7">
+          <label for="emailDomain">Email domain</label>
+          <input type="text" class="form-control" id="emailDomain" name="emailDomain" [(ngModel)]="selectedPartner.emailDomain"
+                 [disabled]="!editMode" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="users">Felhasználók</label>
+          <app-dropdown-checkboxlist [listSource]="users" name="users" [(ngModel)]="selectedPartner.users" [maxBadge]="5"
+                                     [disabled]="!editMode">
+          </app-dropdown-checkboxlist>
+        </div>
+      </div>
+
+      <div *ngIf="!editMode" class="button-group-2">
+        <button type="button" class="btn btn-primary" (click)="modify()">Módosítás</button>
+        <button type="button" class="btn btn-danger" (click)="delete()">Törlés</button>
+      </div>
+
+      <div *ngIf="editMode" class="button-group-2">
+        <button type="button" class="btn btn-success" (click)="save()">Mentés</button>
+        <button type="button" class="btn btn-danger" (click)="cancel()">Mégsem</button>
+      </div>
+
+    </form>
+  </div>
+
+</div>
