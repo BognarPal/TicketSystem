@@ -22,5 +22,7 @@ namespace TicketSystem.Models.Authentication
         public bool SendEmail { get; set; }
 
         public IList<UserRoleModel> Roles { get; set; }
+
+        public IList<UserPartnerModel> UserPartners { get; set; }
     }
 }

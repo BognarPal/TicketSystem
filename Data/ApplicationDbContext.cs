@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TicketSystem.Models;
 using TicketSystem.Models.Authentication;
 
 namespace TicketSystem.Data
@@ -21,6 +22,8 @@ namespace TicketSystem.Data
         public DbSet<UserStateModel> UserState { get; set; }
         public DbSet<UserStateHistoryModel> UserStateHistory { get; set; }
         public DbSet<UserSessionModel> UserSessions { get; set; }
+        public DbSet<PartnerModel> Partners { get; set; }
+        public DbSet<UserPartnerModel> UserPartners { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
         {
@@ -44,6 +47,11 @@ namespace TicketSystem.Data
             );
 
             builder.Entity<UserSessionModel>().HasIndex(s => s.SessionId).IsUnique();
+
+            builder.Entity<PartnerModel>().HasIndex(p => p.Name).IsUnique();
+            builder.Entity<PartnerModel>().HasIndex(p => p.ShortName).IsUnique();
+
+            builder.Entity<UserPartnerModel>().HasIndex(up => new { up.PartnerId, up.UserId }).IsUnique();
         }
     }
 }

@@ -21,6 +21,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.Mysql" Version="3.1.1" />
   </ItemGroup>
 
@@ -32,10 +33,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200307202917_PartnerTables.cs" />
+    <Compile Remove="Migrations\20200307202917_PartnerTables.Designer.cs" />
+    <Compile Remove="Migrations\20200307203117_PartnerTables.cs" />
+    <Compile Remove="Migrations\20200307203117_PartnerTables.Designer.cs" />
+    <Compile Remove="Migrations\20200307214029_PartnerTables_CorrectShortName.cs" />
+    <Compile Remove="Migrations\20200307214029_PartnerTables_CorrectShortName.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="ClientApp\src\app\directives\" />
     <Folder Include="ClientApp\src\app\controls\" />
     <Folder Include="ClientApp\src\app\services\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

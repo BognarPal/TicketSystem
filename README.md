@@ -41,4 +41,6 @@ GRANT ALL PRIVILEGES ON * . * TO 'ticket'@'localhost';
 
 16-Dropwon direktíva elkészítése: https://youtu.be/8HJLq3e9HOI
 
-17-Saját control: DropdownCheckboxList: http://youtu.be/SuFoLecnvfQ?hd=1
+17-Saját control: DropdownCheckboxList: http://youtu.be/SuFoLecnvfQ
+
+18-Partnerek karbantatása (CRUD) back-end: https://youtu.be/wJYaPPi3xGI
